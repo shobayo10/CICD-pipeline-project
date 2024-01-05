@@ -29,12 +29,14 @@ jobs:
 
   development:
     needs: [build]
+    environment: development 
     runs-on: ubuntu-latest
     steps:
       - run: echo "- Auto-deploy the artifact to the development environment"
         
   staging:
     needs: [test-artifact, build, development]
+    environment: staging 
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -50,6 +52,7 @@ jobs:
         
   production:
     needs: [staging, test-staging]
+    environment: production 
     runs-on: ubuntu-latest
     steps:
       - run: |
